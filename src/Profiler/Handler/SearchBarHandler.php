@@ -2,6 +2,7 @@
 
 namespace Profiler\Handler;
 
+use Laminas\Diactoros\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -30,6 +31,10 @@ class SearchBarHandler implements RequestHandlerInterface
     {
         $symfonyRequest = $this->httpFoundationFactory->createRequest($request);
         $response = $this->profilerController->searchBarAction($symfonyRequest);
-        return $this->psrHttpFactory->createResponse($response);
+        $psrResponse = $this->psrHttpFactory->createResponse($response);
+
+        $psrResponse->getBody()->rewind();
+
+        return $psrResponse;
     }
 }

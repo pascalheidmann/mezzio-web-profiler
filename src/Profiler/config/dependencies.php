@@ -7,7 +7,7 @@ return [
         'aliases' => [
             \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface::class => \Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory::class,
             \Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface::class => \Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory::class,
-            \Symfony\Component\Routing\Generator\UrlGeneratorInterface::class => \Symfony\Component\Routing\Generator\UrlGenerator::class,
+            \Symfony\Component\Routing\Generator\UrlGeneratorInterface::class => \Profiler\Service\UrlGenerator::class,
             \Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface::class => Symfony\Component\HttpKernel\Profiler\FileProfilerStorage::class,
             \Symfony\Component\HttpKernel\KernelInterface::class => \Profiler\Service\FakeSymfonyKernel::class,
         ],
@@ -27,6 +27,7 @@ return [
             \Profiler\Handler\SearchBarHandler::class => AutoWiringFactory::class,
             \Profiler\Service\RequestRendererService::class => AutoWiringFactory::class,
             \Profiler\Twig\ControllerExtension::class => AutoWiringFactory::class,
+            \Profiler\Service\UrlGenerator::class => AutoWiringFactory::class,
 
             \Profiler\Service\FakeSymfonyKernel::class => \Profiler\Factory\FakeSymfonyKernelFactory::class,
 

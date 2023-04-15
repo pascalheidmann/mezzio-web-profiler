@@ -30,6 +30,8 @@ class SearchResultsHandler implements RequestHandlerInterface
     {
         $symfonyRequest = $this->httpFoundationFactory->createRequest($request);
         $response = $this->profilerController->searchResultsAction($symfonyRequest, $request->getAttribute('token'));
-        return $this->psrHttpFactory->createResponse($response);
+        $mezzioResponse = $this->psrHttpFactory->createResponse($response);
+        $mezzioResponse->getBody()->rewind();
+        return $mezzioResponse;
     }
 }

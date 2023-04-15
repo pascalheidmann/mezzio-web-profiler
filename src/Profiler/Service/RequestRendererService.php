@@ -31,7 +31,6 @@ class RequestRendererService
         $request = $this->serverRequestFactory->createServerRequest(RequestMethodInterface::METHOD_GET, $uri);
         $routeResult = $this->router->match($request);
         $response = $routeResult->process($request, new class () implements RequestHandlerInterface {
-
             public function handle(ServerRequestInterface $request): ResponseInterface
             {
                 throw new \Exception('Unsupported!');
