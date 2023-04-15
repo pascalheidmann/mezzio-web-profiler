@@ -15,7 +15,7 @@ return [
                 'priority' => 300
             ],
             */
-            \Symfony\Component\HttpKernel\DataCollector\RouterDataCollector::class => [
+            \Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::class => [
                 'template' => '@MezzioProfiler/Collector/router.html.twig',
                 'id' => 'router',
                 'priority' => 285

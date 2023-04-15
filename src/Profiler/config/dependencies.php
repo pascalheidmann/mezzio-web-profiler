@@ -24,6 +24,7 @@ return [
             \Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector::class => AutoWiringFactory::class,
             \Symfony\Component\HttpKernel\DataCollector\LoggerDataCollector::class => AutoWiringFactory::class,
             \Symfony\Component\HttpKernel\DataCollector\RouterDataCollector::class => AutoWiringFactory::class,
+            \Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::class => AutoWiringFactory::class,
             \Symfony\Bridge\Twig\DataCollector\TwigDataCollector::class => AutoWiringFactory::class,
             \Twig\Profiler\Profile::class => AutoWiringFactory::class,
 
