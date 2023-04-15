@@ -3,26 +3,25 @@
 namespace Profiler\Service;
 
 use Fig\Http\Message\RequestMethodInterface;
-use Mezzio\Handler\NotFoundHandler;
 use Mezzio\Router\RouterInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 class RequestRendererService
 {
     private RouterInterface $router;
-    private NotFoundHandler $notFoundHandler;
     private ServerRequestFactoryInterface $serverRequestFactory;
 
     public function __construct(
         ServerRequestFactoryInterface $serverRequestFactory,
-        RouterInterface               $router,
-        NotFoundHandler               $notFoundHandler
+        RouterInterface               $router
     )
     {
         $this->serverRequestFactory = $serverRequestFactory;
         $this->router = $router;
-        $this->notFoundHandler = $notFoundHandler;
     }
 
     public function renderFragment(ControllerReference $controllerReference): string
@@ -31,7 +30,13 @@ class RequestRendererService
 
         $request = $this->serverRequestFactory->createServerRequest(RequestMethodInterface::METHOD_GET, $uri);
         $routeResult = $this->router->match($request);
-        $response = $routeResult->process($request, $this->notFoundHandler);
+        $response = $routeResult->process($request, new class () implements RequestHandlerInterface {
+
+            public function handle(ServerRequestInterface $request): ResponseInterface
+            {
+                throw new \Exception('Unsupported!');
+            }
+        });
 
         return $response->getBody()->getContents();
     }

@@ -2,6 +2,7 @@
 
 $twigExtensions = [
     \Profiler\Twig\ControllerExtension::class,
+    \Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension::class,
 ];
 
 if (class_exists(\Symfony\Bridge\Twig\Extension\CodeExtension::class)) {
@@ -16,6 +17,6 @@ return [
         ],
     ],
     'twig' => [
-        'extensions' => $twigExtensions
+        'extensions' => $twigExtensions,
     ],
 ];

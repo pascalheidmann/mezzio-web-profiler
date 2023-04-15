@@ -52,6 +52,7 @@ class ProfilerPipeline implements MiddlewareInterface
                 // TODO: Implement handle() method.
             }
         };
+
         $profile = $this->profiler->collect($symfonyRequest, $symfonyResponse);
         $this->profiler->saveProfile($profile);
         $this->debugToolbarListener->onKernelResponse(new ResponseEvent($dummyHttpKernel, $symfonyRequest, HttpKernelInterface::MAIN_REQUEST, $symfonyResponse));
