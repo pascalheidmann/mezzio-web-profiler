@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class ProfilerPipeline implements MiddlewareInterface
 {
@@ -21,27 +22,40 @@ class ProfilerPipeline implements MiddlewareInterface
     private HttpMessageFactoryInterface $psrHttpFactory;
     private Profiler $profiler;
     private string $pathToIgnore;
+    /**
+     * @var Stopwatch|null
+     */
+    private $stopwatch;
 
     public function __construct(
         Profiler $profiler,
         WebDebugToolbarListener $debugToolbarListener,
         HttpFoundationFactoryInterface $httpFoundationFactory,
         HttpMessageFactoryInterface $psrHttpFactory,
+        $stopwatch = null,
         string $pathToIgnore = '#^/_wdt/|^/_profiler/#'
     ) {
         $this->profiler = $profiler;
         $this->debugToolbarListener = $debugToolbarListener;
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->psrHttpFactory = $psrHttpFactory;
+        $this->stopwatch = $stopwatch;
         $this->pathToIgnore = $pathToIgnore;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $response = $handler->handle($request);
         if (preg_match($this->pathToIgnore, $request->getUri()->getPath()) === 1) {
-            return $response;
+            return $handler->handle($request);
         }
+
+        $stopWatchToken = substr(hash('sha256', uniqid(mt_rand(), true)), 0, 6);
+        if ($this->stopwatch !== null) {
+            $request = $request->withAttribute('_stopwatch_token', $stopWatchToken);
+            $this->stopwatch->openSection();
+        }
+
+        $response = $handler->handle($request);
 
         $symfonyResponse = $this->httpFoundationFactory->createResponse($response);
         $symfonyRequest = $this->httpFoundationFactory->createRequest($request);
@@ -53,7 +67,11 @@ class ProfilerPipeline implements MiddlewareInterface
             }
         };
 
+        if ($this->stopwatch !== null) {
+            $this->stopwatch->stopSection($stopWatchToken);
+        }
         $profile = $this->profiler->collect($symfonyRequest, $symfonyResponse);
+
         $this->profiler->saveProfile($profile);
         $this->debugToolbarListener->onKernelResponse(new ResponseEvent($dummyHttpKernel, $symfonyRequest, HttpKernelInterface::MAIN_REQUEST, $symfonyResponse));
 

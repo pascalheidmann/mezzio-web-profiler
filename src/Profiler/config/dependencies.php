@@ -16,7 +16,7 @@ return [
             \Symfony\Component\VarDumper\Dumper\HtmlDumper::class => \Symfony\Component\VarDumper\Dumper\HtmlDumper::class,
         ],
         'factories' => [
-            \Profiler\ProfilerPipeline::class => AutoWiringFactory::class,
+            \Profiler\ProfilerPipeline::class => \Profiler\Factory\ProfilerPipelineFactory::class,
             \Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::class => AutoWiringFactory::class,
             \Profiler\Handler\ToolbarHandler::class => AutoWiringFactory::class,
             \Profiler\Handler\PanelHandler::class => AutoWiringFactory::class,
