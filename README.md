@@ -1,3 +1,13 @@
+# This is a proof of concept integrating symfony web profiler into mezzio endpoints
+:warning: Don't use this in production!
+
+## Current state
+- Most endpoints are tunneled trough a compatibility layer between psr7/psr17 and symfony's request cycle.
+- Basic profiling works
+-- You have to define collectors manually as there is no magic tagging feature like in symfony
+-- Most symfony data collectors sadly rely on symfony events which makes timing not available (for now)
+--- You should be able to trigger timings manually by using `\Symfony\Component\Stopwatch\Stopwatch` and triggering events manually
+
 # Mezzio Skeleton and Installer
 
 [![Build Status](https://github.com/mezzio/mezzio-skeleton/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/mezzio/mezzio-skeleton/actions/workflows/continuous-integration.yml)
