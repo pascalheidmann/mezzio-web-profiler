@@ -2,11 +2,19 @@
 :warning: Don't use this in production!
 
 ## Current state
-- Most endpoints are tunneled trough a compatibility layer between psr7/psr17 and symfony's request cycle.
+- Most endpoints are tunneled through a compatibility layer between psr7/psr17 and symfony's request cycle.
 - Basic profiling works
--- You have to define collectors manually as there is no magic tagging feature like in symfony
--- Most symfony data collectors sadly rely on symfony events which makes timing not available (for now)
---- You should be able to trigger timings manually by using `\Symfony\Component\Stopwatch\Stopwatch` and triggering events manually
+  - You have to define collectors manually as there is no magic tagging feature like in symfony
+    - Most symfony data collectors sadly rely on symfony events which makes timing not available (for now)
+    - You should be able to trigger timings manually by using `\Symfony\Component\Stopwatch\Stopwatch` and triggering events manually
+- Some hacks were necessary for navigation besides wrapping symfony controllers into psr17 handlers
+
+
+
+---
+
+
+
 
 # Mezzio Skeleton and Installer
 
