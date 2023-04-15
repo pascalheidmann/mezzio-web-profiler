@@ -28,6 +28,10 @@ class PanelHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        // hacky workaround cause symfony and mezzio handle unmatched parameters in url creation different
+        if ($request->getAttribute('panel')) {
+            $request = $request->withQueryParams(['panel' => $request->getAttribute('panel')] + $request->getQueryParams());
+        }
         $symfonyRequest = $this->httpFoundationFactory->createRequest($request);
         $response = $this->profilerController->panelAction($symfonyRequest, $request->getAttribute('token'));
         return $this->psrHttpFactory->createResponse($response);

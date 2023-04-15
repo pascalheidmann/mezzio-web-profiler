@@ -35,7 +35,7 @@ return [
             'middleware' => \Profiler\Handler\SearchBarHandler::class,
         ],
         '_profiler' => [
-            'path' => '/_profiler/{token}',
+            'path' => '/_profiler/{token}[/{panel}]',
             'middleware' => \Profiler\Handler\PanelHandler::class,
         ],
     ],
