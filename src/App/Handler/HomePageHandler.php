@@ -6,6 +6,8 @@ namespace App\Handler;
 
 use Chubbyphp\Container\MinimalContainer;
 use DI\Container as PHPDIContainer;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Uri;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\ServiceManager\ServiceManager;
@@ -15,6 +17,7 @@ use Mezzio\Router;
 use Mezzio\Template\TemplateRendererInterface;
 use Mezzio\Twig\TwigRenderer;
 use Pimple\Psr11\Container as PimpleContainer;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -25,7 +28,8 @@ class HomePageHandler implements RequestHandlerInterface
     public function __construct(
         private string $containerName,
         private Router\RouterInterface $router,
-        private ?TemplateRendererInterface $template = null
+        private ClientInterface $client,
+        private ?TemplateRendererInterface $template = null,
     ) {
     }
 
@@ -82,6 +86,8 @@ class HomePageHandler implements RequestHandlerInterface
             $data['templateName'] = 'Laminas View';
             $data['templateDocs'] = 'https://docs.laminas.dev/laminas-view/';
         }
+
+        $google = $this->client->sendRequest(new Request('GET', new Uri('https://google.com')));
 
         return new HtmlResponse($this->template->render('app::home-page', $data));
     }

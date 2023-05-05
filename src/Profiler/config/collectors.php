@@ -41,12 +41,17 @@ return [
             \Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::class => [
                 'template' => '@WebProfiler/Collector/request.html.twig',
                 'id' => 'request',
-                'priority' => 335
+                'priority' => 335,
             ],
             \Symfony\Bridge\Twig\DataCollector\TwigDataCollector::class => [
                 'template' => '@WebProfiler/Collector/twig.html.twig',
                 'id' => 'twig',
-                'priority' => 257
+                'priority' => 257,
+            ],
+            \Profiler\DataCollector\GuzzleDataCollector::class => [
+                'template' => '@MezzioProfiler/Collector/guzzle.html.twig',
+                'id' => 'guzzle',
+                'priority' => 298,
             ],
         ],
     ],

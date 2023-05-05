@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Profiler\Factory\GuzzleProfileHandlerFactory;
-use Profiler\Guzzle\GuzzleSubscriber;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 
 return [
@@ -48,6 +46,9 @@ return [
             \Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::class => AutoWiringFactory::class,
             \Symfony\Bridge\Twig\DataCollector\TwigDataCollector::class => AutoWiringFactory::class,
             \Twig\Profiler\Profile::class => AutoWiringFactory::class,
+
+            \Profiler\Integrations\Guzzle\ProfilerMiddleware::class => AutoWiringFactory::class,
+            \Profiler\DataCollector\GuzzleDataCollector::class => AutoWiringFactory::class,
 
             \Symfony\Bridge\Twig\Extension\CodeExtension::class => \Profiler\Factory\TwigCodeExtensionFactory::class,
             \Symfony\Component\HttpFoundation\RequestStack::class => \Profiler\Factory\RequestStackFactory::class,

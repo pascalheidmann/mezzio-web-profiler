@@ -10,7 +10,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class TimeDataCollectorFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): TimeDataCollector
     {
         $kernel = $container->has(KernelInterface::class) ? $container->get(KernelInterface::class) : null;
         $stopWatch = $container->has(Stopwatch::class) ? $container->get(Stopwatch::class) : null;

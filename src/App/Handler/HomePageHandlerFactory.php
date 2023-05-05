@@ -7,6 +7,7 @@ namespace App\Handler;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function assert;
@@ -23,6 +24,6 @@ class HomePageHandlerFactory
             : null;
         assert($template instanceof TemplateRendererInterface || null === $template);
 
-        return new HomePageHandler($container::class, $router, $template);
+        return new HomePageHandler($container::class, $router, $container->get(ClientInterface::class),$template);
     }
 }
