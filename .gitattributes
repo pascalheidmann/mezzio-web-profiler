@@ -1,0 +1,85 @@
+# Classify ALL files as text files per default
+##############################################
+* text=auto eol=lf
+
+# Have certain files keep Windows line ends
+###########################################
+*.bat text eol=crlf
+*.htc text eol=crlf
+
+# EXHAUSTIVE list of binary files
+#################################
+# (images)
+##########
+*.eps  binary
+*.gif  binary
+*.ico  binary
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.psd  binary
+*.swf  binary
+*.tif  binary
+*.wbmp binary
+*.bmp  binary
+*.xcf  binary
+#
+# (archives)
+############
+*.bz2  binary
+*.gz   binary
+*.jar  binary
+*.zip  binary
+#
+# (fonts)
+#########
+*.eot   binary
+*.otf   binary
+*.qix   binary
+*.shp   binary
+*.shx   binary
+*.ttf   binary
+*.TTF   binary
+*.woff  binary
+*.woff2 binary
+#
+# (executables)
+###############
+*.exe               binary
+backup/bin/ibbackup binary
+#
+# (other)
+#########
+*.aff                    binary
+*.afm                    binary
+*.bin                    binary
+*.copy                   binary
+*.doc                    binary
+*.dat                    binary
+*.db                     binary
+*.dbf                    binary
+*.der                    binary
+*.done                   binary
+*.e00                    binary
+*.engine                 binary
+*.fdf                    binary
+*.fix                    binary
+*.gpg                    binary
+*.gpg~                   binary
+*.hiddenFile             binary
+*.mo                     binary
+*.neon                   text
+*.noencode               binary
+*.p12                    binary
+*.pfx                    binary
+*.pdf                    binary
+*.phar                   binary
+*.pws                    binary
+*.raw                    binary
+*.res                    binary
+*.swp                    binary
+*.xlf                    binary
+*.xlsx                   binary
+*.z                      binary
+random_seed              binary
+*.zf-mkdoc-theme-landing binary

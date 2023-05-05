@@ -1,0 +1,41 @@
+---
+
+rules:
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  comments:
+    require-starting-space: yes
+    min-spaces-from-content: 2
+  comments-indentation: enable
+  document-end: disable
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 0
+  hyphens:
+    max-spaces-after: 1
+  indentation:
+    spaces: consistent
+    indent-sequences: yes
+    check-multi-line-strings: no
+  key-duplicates: enable
+  line-length:
+    max: 200
+    allow-non-breakable-words: yes
+    allow-non-breakable-inline-mappings: yes
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix
+  trailing-spaces: enable
+  truthy: enable
