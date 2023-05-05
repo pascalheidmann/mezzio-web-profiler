@@ -18,6 +18,8 @@ use Mezzio\Container;
 use Mezzio\Middleware\ErrorResponseGenerator;
 
 return [
+    \Laminas\ConfigAggregator\ConfigAggregator::ENABLE_CACHE => false,
+    'debug' => true,
     'dependencies' => [
         'factories' => [
             ErrorResponseGenerator::class => Container\WhoopsErrorResponseGeneratorFactory::class,

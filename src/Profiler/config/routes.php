@@ -30,6 +30,10 @@ return [
             'path' => '/_profiler/search_bar',
             'middleware' => \Profiler\Handler\SearchBarHandler::class,
         ],
+        '_profiler_xdebug' => [
+            'path' => '/_profiler/xdebug',
+            'middleware' => \Profiler\Handler\XdebugHandler::class,
+        ],
         'web_profiler.controller.profiler::searchBarAction' => [
             'path' => 'web_profiler.controller.profiler::searchBarAction',
             'middleware' => \Profiler\Handler\SearchBarHandler::class,

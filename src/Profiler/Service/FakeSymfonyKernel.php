@@ -13,7 +13,7 @@ class FakeSymfonyKernel extends Kernel
         parent::__construct($environment, $debug);
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         // TODO: Implement registerBundles() method.
     }

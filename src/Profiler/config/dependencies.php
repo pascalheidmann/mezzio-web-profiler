@@ -25,6 +25,7 @@ return [
             \Profiler\Handler\SearchResultsHandler::class => AutoWiringFactory::class,
             \Profiler\Handler\SearchHandler::class => AutoWiringFactory::class,
             \Profiler\Handler\SearchBarHandler::class => AutoWiringFactory::class,
+            \Profiler\Handler\XdebugHandler::class => AutoWiringFactory::class,
             \Profiler\Service\RequestRendererService::class => AutoWiringFactory::class,
             \Profiler\Twig\ControllerExtension::class => AutoWiringFactory::class,
             \Profiler\Service\UrlGenerator::class => AutoWiringFactory::class,

@@ -10,6 +10,7 @@ use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
@@ -61,7 +62,7 @@ class ProfilerPipeline implements MiddlewareInterface
         $symfonyRequest = $this->httpFoundationFactory->createRequest($request);
 
         $dummyHttpKernel = new class() implements HttpKernelInterface {
-            public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true)
+            public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
             {
                 // TODO: Implement handle() method.
             }

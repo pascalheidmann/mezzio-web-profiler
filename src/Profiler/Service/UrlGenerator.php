@@ -21,7 +21,7 @@ class UrlGenerator implements UrlGeneratorInterface
         // TODO: Implement setContext() method.
     }
 
-    public function getContext()
+    public function getContext(): RequestContext
     {
         // TODO: Implement getContext() method.
     }
