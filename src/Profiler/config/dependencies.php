@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Profiler\Factory\GuzzleProfileHandlerFactory;
+use Profiler\Guzzle\GuzzleSubscriber;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 
 return [
@@ -61,5 +65,5 @@ return [
             \Symfony\Component\Routing\RequestContext::class => AutoWiringFactory::class,
             \Symfony\Component\HttpKernel\Profiler\Profiler::class => \Profiler\Factory\ProfilerFactory::class,
         ],
-    ]
+    ],
 ];

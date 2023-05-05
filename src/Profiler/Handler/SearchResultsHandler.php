@@ -11,19 +11,11 @@ use Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController;
 
 class SearchResultsHandler implements RequestHandlerInterface
 {
-    private ProfilerController $profilerController;
-    private HttpFoundationFactoryInterface $httpFoundationFactory;
-    private HttpMessageFactoryInterface $psrHttpFactory;
-
     public function __construct(
-        ProfilerController             $profilerController,
-        HttpFoundationFactoryInterface $httpFoundationFactory,
-        HttpMessageFactoryInterface    $psrHttpFactory
-    )
-    {
-        $this->profilerController = $profilerController;
-        $this->httpFoundationFactory = $httpFoundationFactory;
-        $this->psrHttpFactory = $psrHttpFactory;
+        private ProfilerController $profilerController,
+        private HttpFoundationFactoryInterface $httpFoundationFactory,
+        private HttpMessageFactoryInterface $psrHttpFactory
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

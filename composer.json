@@ -42,30 +42,31 @@
         }
     },
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
-        "composer/package-versions-deprecated": "^1.10.99",
-        "laminas/laminas-config-aggregator": "^1.6",
-        "laminas/laminas-diactoros": "^2.7",
-        "laminas/laminas-servicemanager": "^3.4",
-        "laminas/laminas-stdlib": "^3.6",
-        "mezzio/mezzio": "^3.7",
-        "mezzio/mezzio-fastroute": "^3.0.3",
-        "mezzio/mezzio-helpers": "^5.7",
-        "mezzio/mezzio-twigrenderer": "^2.6",
-        "psr/log": "*",
+        "php" : "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "composer/package-versions-deprecated" : "^1.10.99",
+        "laminas/laminas-config-aggregator" : "^1.6",
+        "laminas/laminas-diactoros" : "^2.7",
+        "laminas/laminas-servicemanager" : "^3.4",
+        "laminas/laminas-stdlib" : "^3.6",
+        "mezzio/mezzio" : "^3.7",
+        "mezzio/mezzio-fastroute" : "^3.0.3",
+        "mezzio/mezzio-helpers" : "^5.7",
+        "mezzio/mezzio-twigrenderer" : "^2.6",
+        "psr/log" : "*",
         "reinfi/zf-dependency-injection": "^5.4",
         "symfony/psr-http-message-bridge": "^2.1",
         "symfony/web-profiler-bundle": "^5.4 || ^6.0"
     },
     "require-dev": {
-        "filp/whoops": "^2.7.1",
-        "laminas/laminas-development-mode": "^3.3.0",
-        "mezzio/mezzio-tooling": "^2.1",
-        "monolog/monolog": "^3.3",
-        "phpunit/phpunit": "^9.5.11",
-        "rector/rector": "^0.16.0",
-        "roave/security-advisories": "dev-master",
-        "symfony/stopwatch": "^5.4"
+        "filp/whoops" : "^2.7.1",
+        "laminas/laminas-development-mode" : "^3.3.0",
+        "mezzio/mezzio-tooling" : "^2.1",
+        "monolog/monolog" : "^3.3",
+        "phpunit/phpunit" : "^9.5.11",
+        "rector/rector" : "^0.16.0",
+        "roave/security-advisories" : "dev-master",
+        "symfony/stopwatch" : "^5.4",
+        "symplify/easy-coding-standard" : "^11.3"
     },
     "suggest": {
         "symfony/twig-bridge": "To use TwigDataCollector"
@@ -89,20 +90,20 @@
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
         "mezzio": "laminas --ansi",
-        "check": [
+        "check" : [
             "@cs-check",
             "@test"
         ],
-        "modernise": [
+        "modernise" : [
             "rector --config=rector_modernise.config.php",
             "@cs-fix"
         ],
-        "clear-config-cache": "php bin/clear-config-cache.php",
-        "enable-codestandard": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "serve": "php -S 0.0.0.0:8080 -t public/",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "clear-config-cache" : "php bin/clear-config-cache.php",
+        "enable-codestandard" : "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
+        "cs-check" : "ecs check src test",
+        "cs-fix" : "ecs check src test --fix",
+        "serve" : "php -S 0.0.0.0:8080 -t public/",
+        "test" : "phpunit --colors=always",
+        "test-coverage" : "phpunit --colors=always --coverage-clover clover.xml"
     }
 }

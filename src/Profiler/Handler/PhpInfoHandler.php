@@ -10,16 +10,10 @@ use Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController;
 
 class PhpInfoHandler implements RequestHandlerInterface
 {
-    private ProfilerController $profilerController;
-    private HttpMessageFactoryInterface $psrHttpFactory;
-
     public function __construct(
-        ProfilerController             $profilerController,
-        HttpMessageFactoryInterface    $psrHttpFactory
-    )
-    {
-        $this->profilerController = $profilerController;
-        $this->psrHttpFactory = $psrHttpFactory;
+        private ProfilerController $profilerController,
+        private HttpMessageFactoryInterface $psrHttpFactory
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

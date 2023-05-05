@@ -18,30 +18,14 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class ProfilerPipeline implements MiddlewareInterface
 {
-    private WebDebugToolbarListener $debugToolbarListener;
-    private HttpFoundationFactoryInterface $httpFoundationFactory;
-    private HttpMessageFactoryInterface $psrHttpFactory;
-    private Profiler $profiler;
-    private string $pathToIgnore;
-    /**
-     * @var Stopwatch|null
-     */
-    private $stopwatch;
-
     public function __construct(
-        Profiler $profiler,
-        WebDebugToolbarListener $debugToolbarListener,
-        HttpFoundationFactoryInterface $httpFoundationFactory,
-        HttpMessageFactoryInterface $psrHttpFactory,
-        $stopwatch = null,
-        string $pathToIgnore = '#^/_wdt/|^/_profiler/#'
+        private Profiler $profiler,
+        private WebDebugToolbarListener $debugToolbarListener,
+        private HttpFoundationFactoryInterface $httpFoundationFactory,
+        private HttpMessageFactoryInterface $psrHttpFactory,
+        private ?Stopwatch $stopwatch = null,
+        private string $pathToIgnore = '#^/_wdt/|^/_profiler/#'
     ) {
-        $this->profiler = $profiler;
-        $this->debugToolbarListener = $debugToolbarListener;
-        $this->httpFoundationFactory = $httpFoundationFactory;
-        $this->psrHttpFactory = $psrHttpFactory;
-        $this->stopwatch = $stopwatch;
-        $this->pathToIgnore = $pathToIgnore;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -50,7 +34,7 @@ class ProfilerPipeline implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $stopWatchToken = substr(hash('sha256', uniqid(mt_rand(), true)), 0, 6);
+        $stopWatchToken = substr(hash('sha256', uniqid(random_int(0, mt_getrandmax()), true)), 0, 6);
         if ($this->stopwatch !== null) {
             $request = $request->withAttribute('_stopwatch_token', $stopWatchToken);
             $this->stopwatch->openSection();

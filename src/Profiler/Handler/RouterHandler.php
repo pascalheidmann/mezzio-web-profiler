@@ -10,16 +10,10 @@ use Symfony\Bundle\WebProfilerBundle\Controller\RouterController;
 
 class RouterHandler implements RequestHandlerInterface
 {
-    private RouterController $routerController;
-    private HttpMessageFactoryInterface $psrHttpFactory;
-
     public function __construct(
-        RouterController            $routerController,
-        HttpMessageFactoryInterface $psrHttpFactory
-    )
-    {
-        $this->routerController = $routerController;
-        $this->psrHttpFactory = $psrHttpFactory;
+        private RouterController $routerController,
+        private HttpMessageFactoryInterface $psrHttpFactory
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

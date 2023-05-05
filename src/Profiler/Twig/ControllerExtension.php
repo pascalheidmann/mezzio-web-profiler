@@ -9,11 +9,8 @@ use Twig\TwigFunction;
 
 class ControllerExtension extends AbstractExtension
 {
-    private RequestRendererService $renderer;
-
-    public function __construct(RequestRendererService $renderer)
+    public function __construct(private RequestRendererService $renderer)
     {
-        $this->renderer = $renderer;
     }
 
     public static function controller(string $controller, array $attributes = [], array $query = []): ControllerReference

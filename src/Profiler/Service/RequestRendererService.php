@@ -12,16 +12,10 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 class RequestRendererService
 {
-    private RouterInterface $router;
-    private ServerRequestFactoryInterface $serverRequestFactory;
-
     public function __construct(
-        ServerRequestFactoryInterface $serverRequestFactory,
-        RouterInterface               $router
-    )
-    {
-        $this->serverRequestFactory = $serverRequestFactory;
-        $this->router = $router;
+        private ServerRequestFactoryInterface $serverRequestFactory,
+        private RouterInterface $router
+    ) {
     }
 
     public function renderFragment(ControllerReference $controllerReference): string

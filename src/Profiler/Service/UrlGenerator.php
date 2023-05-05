@@ -8,12 +8,8 @@ use Symfony\Component\Routing\RequestContext;
 
 class UrlGenerator implements UrlGeneratorInterface
 {
-    private TwigExtension $twigExtension;
-
-    public function __construct(
-        TwigExtension $twigExtension
-    ){
-        $this->twigExtension = $twigExtension;
+    public function __construct(private TwigExtension $twigExtension)
+    {
     }
 
     public function setContext(RequestContext $context)
