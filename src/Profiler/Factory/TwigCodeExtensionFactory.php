@@ -10,6 +10,6 @@ class TwigCodeExtensionFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): CodeExtension
     {
-        return new CodeExtension(null, __DIR__ . '/../../../', 'UTF-8');
+        return new CodeExtension('', __DIR__ . '/../../../', 'UTF-8');
     }
 }
