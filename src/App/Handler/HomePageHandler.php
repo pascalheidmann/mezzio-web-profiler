@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Entity\User;
 use Chubbyphp\Container\MinimalContainer;
 use DI\Container as PHPDIContainer;
+use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -29,6 +31,7 @@ class HomePageHandler implements RequestHandlerInterface
         private string $containerName,
         private Router\RouterInterface $router,
         private ClientInterface $client,
+        private EntityManager $entityManager,
         private ?TemplateRendererInterface $template = null,
     ) {
     }
@@ -88,6 +91,7 @@ class HomePageHandler implements RequestHandlerInterface
         }
 
         $google = $this->client->sendRequest(new Request('GET', new Uri('https://google.com')));
+        $entity = $this->entityManager->find(User::class, 1);
 
         return new HtmlResponse($this->template->render('app::home-page', $data));
     }

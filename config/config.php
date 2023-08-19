@@ -12,40 +12,65 @@ $cacheConfig = [
     'config_cache_path' => 'data/cache/config-cache.php',
 ];
 
-$aggregator = new ConfigAggregator([
-    \Reinfi\DependencyInjection\ConfigProvider::class,
-    \Mezzio\Twig\ConfigProvider::class,
-    \Mezzio\Helper\ConfigProvider::class,
-    \Mezzio\Tooling\ConfigProvider::class,
-    \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
-    \Laminas\HttpHandlerRunner\ConfigProvider::class,
-    // Include cache configuration
-    new ArrayProvider($cacheConfig),
-    \Mezzio\ConfigProvider::class,
-    \Mezzio\Router\ConfigProvider::class,
-    \Laminas\Diactoros\ConfigProvider::class,
+$aggregator = new ConfigAggregator(
+    [
+        \Reinfi\DependencyInjection\ConfigProvider::class,
+        \Mezzio\Twig\ConfigProvider::class,
+        \Mezzio\Helper\ConfigProvider::class,
+        \Mezzio\Tooling\ConfigProvider::class,
+        \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
+        \Laminas\HttpHandlerRunner\ConfigProvider::class,
+        // Include cache configuration
+        new ArrayProvider($cacheConfig),
+        \Mezzio\ConfigProvider::class,
+        \Mezzio\Router\ConfigProvider::class,
+        \Laminas\Diactoros\ConfigProvider::class,
 
-    // Swoole config to overwrite some services (if installed)
-    class_exists(\Mezzio\Swoole\ConfigProvider::class)
-        ? \Mezzio\Swoole\ConfigProvider::class
-        : function (): array {
+        // Swoole config to overwrite some services (if installed)
+        class_exists(\Mezzio\Swoole\ConfigProvider::class)
+            ? \Mezzio\Swoole\ConfigProvider::class
+            : function (): array {
             return [];
         },
 
-    // Default App module config
-    \App\ConfigProvider::class,
-    \Profiler\ConfigProvider::class,
+        class_exists(\Laminas\Cache\ConfigProvider::class)
+            ? \Laminas\Cache\ConfigProvider::class
+            : function (): array {
+            return [];
+        },
+        class_exists(\Laminas\Cache\Storage\Adapter\Memory\ConfigProvider::class)
+            ? \Laminas\Cache\Storage\Adapter\Memory\ConfigProvider::class
+            : function (): array {
+            return [];
+        },
+        class_exists(\DoctrineModule\ConfigProvider::class)
+            ? \DoctrineModule\ConfigProvider::class
+            : function (): array {
+            return [];
+        },
+        class_exists(\DoctrineORMModule\ConfigProvider::class)
+            ? \DoctrineORMModule\ConfigProvider::class
+            : function (): array {
+            return [];
+        },
 
-    // Load application config in a pre-defined order in such a way that local settings
-    // overwrite global settings. (Loaded as first to last):
-    //   - `global.php`
-    //   - `*.global.php`
-    //   - `local.php`
-    //   - `*.local.php`
-    new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
+        // Default App module config
+        \App\ConfigProvider::class,
+        \Profiler\ConfigProvider::class,
 
-    // Load development config if it exists
-    new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
-], $cacheConfig['config_cache_path']);
+        // Load application config in a pre-defined order in such a way that local settings
+        // overwrite global settings. (Loaded as first to last):
+        //   - `global.php`
+        //   - `*.global.php`
+        //   - `local.php`
+        //   - `*.local.php`
+        new PhpFileProvider(
+            realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'
+        ),
+
+        // Load development config if it exists
+        new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
+    ], $cacheConfig['config_cache_path']
+);
 
 return $aggregator->getMergedConfig();
